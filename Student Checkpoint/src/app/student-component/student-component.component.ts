@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DataService } from '../data.service';
 
 type College = {
     colID: number;
@@ -31,16 +30,13 @@ type Student = {
 })
 export class StudentComponentComponent {
 
-
-
-
     colleges: Array<College> = [
-        { colID: 5, colShortName: 'SCS', colFullName: 'School of Computer Studies' },
-        { colID: 1, colShortName: 'SBM', colFullName: 'School of Business and Management' },
-        { colID: 2, colShortName: 'SAS', colFullName: 'School of Arts and Sciences' },
-        { colID: 3, colShortName: 'SOENG', colFullName: 'School of Engineering' },
-        { colID: 4, colShortName: 'SED', colFullName: 'School of Education' },
-        { colID: 6, colShortName: 'SAMS', colFullName: 'School of Allied Medical Sciences' }
+        { colID: 100, colShortName: 'SCS', colFullName: 'School of Computer Studies' },
+        { colID: 101, colShortName: 'SBM', colFullName: 'School of Business and Management' },
+        { colID: 102, colShortName: 'SAS', colFullName: 'School of Arts and Sciences' },
+        { colID: 103, colShortName: 'SOENG', colFullName: 'School of Engineering' },
+        { colID: 104, colShortName: 'SED', colFullName: 'School of Education' },
+        { colID: 105, colShortName: 'SAMS', colFullName: 'School of Allied Medical Sciences' }
     ];
 
     programs: Array<Program> = [
@@ -53,7 +49,6 @@ export class StudentComponentComponent {
         { progID: 101003, progShortName: 'BSBA', progFullName: 'Bachelor of Science in Business Administration', progCollege: 101 },
         { progID: 101004, progShortName: 'BSFM', progFullName: 'Bachelor of Science in Financial Management', progCollege: 101 },
     ]
-    message: string = '';
 
     studID: number = null;
     studFirstName: string = '';
@@ -68,8 +63,6 @@ export class StudentComponentComponent {
 
     printable: boolean = false;
 
-    constructor(private dataService: DataService) { }
-
     public saveStudentInfo(): void {
         let studData: Student;
 
@@ -81,77 +74,27 @@ export class StudentComponentComponent {
             studProgram: this.selectedProgram,
             studCollege: this.selectedCollege,
             studYear: Number(this.studYear),
-        }
 
-        console.log(studData)
+        }
 
 
         //added coded
-        //changed all studData To studData
+
+        // this.validateEntries(studData);
 
 
 
-        this.dataService.saveStud(studData).subscribe(
 
-            (response) => {
-                if (response.startsWith('Connected')) {
-                    // Handle the non-JSON response here (if it starts with 'Connected' or other unexpected content)
-                    console.log('Non-JSON response:', response);
-                    // Process or handle the response according to your application's logic
-                } else {
-                    // Try parsing the response as JSON
-                    try {
-                        const jsonResponse = JSON.parse(response);
-                        // Handle the parsed JSON response
-                        if (jsonResponse && jsonResponse.status === 'success') {
-                            this.message = 'User added successfully.';
+        //end
 
-                        } else {
-                            this.message = 'Failed to add user. Please try again.';
-                        }
-                    } catch (error) {
-                        console.error('Error parsing JSON:', error);
-                        this.message = 'An error occurred while processing the response.';
-                    }
-                }
-            },
-            (error) => {
-                if (error && error.message) {
-                    this.message = 'An error occurred: ' + error.message
-                } else {
-                    this.message = 'An error occurred. Please try again later.';
-                }
-            }
 
-            // response => {
-            //     if (response.status === 'success') {
-            //         this.message = 'User added successfully.';
-            //     } else {
-            //         this.message = 'Failed to add user. Please try again.';
-            //     }
-            // }, error => {
-            //     this.message = 'An yawaa error occurred. Please try again later.';
-            // }
 
-        );
+
+        this.studentCollection.push(studData);
         this.clearEntries();
 
-        // this.studentCollection.push(studData);
 
     }
-
-    public getPrograms(): void { 
-
-    }
-
-
-
-
-
-
-
-
-
 
     public getProgramName(progID: number, short: boolean = null): string {
         let foundName = this.programs.find(elemment =>
@@ -200,9 +143,9 @@ export class StudentComponentComponent {
 
 
     //     let forNumPattern 
+        
 
-
-
+        
 
     //     for (let key in studData) {
 
@@ -215,15 +158,15 @@ export class StudentComponentComponent {
     //         console.log(typeof key);
 
 
-
+            
 
     //         // switch (typeof key) {
 
-
+                
 
 
     //         //     case 'string':
-
+                    
     //         //         break;
 
     //         //     case 'number':
